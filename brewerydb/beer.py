@@ -3,6 +3,9 @@ class Beer(object):
     
     def __init__(self, data):
         self.data = data
+
+    def __unicode__(self):
+        return self.name
         
     @property
     def name(self):

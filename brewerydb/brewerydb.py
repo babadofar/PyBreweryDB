@@ -7,6 +7,7 @@ import requests
 import urllib
 
 from .beer import Beer, Beers
+from .brewery import Brewery, Breweries
 
 BASE_URL = 'http://api.brewerydb.com/v2'
 
@@ -41,7 +42,7 @@ class BreweryDB(object):
         return urllib.urlencode(params)
     
     def search_beer(self, beer_name):
-        response = json.loads(self._call(Beers.resource_url, self._params(params={'name': beer_name})).text)
+        response = json.loads(self._call(Beers.resource_url, self._params(params={'name': beer_name, 'wwithBreweries': 'Y'})).text)
         beers = []
         for beer in response['data']:
             beers.append(Beers(beer))
@@ -50,6 +51,15 @@ class BreweryDB(object):
     def get_beer(self, id):
         response = json.loads(self._call("%s/%s" % (Beer.resource_url, id), self._params({'withBreweries': 'Y'})).text)
         return Beer(response['data'])
+
+    def search_breweries(self, brewery_name):
+        response = json.loads(self._call(Breweries.resource_url, self._params(params={'name': brewery_name})).text)
+        print(response)
+        breweries = []
+        for brewery in response['data']:
+            breweries.append(Brewery(brewery))
+        return breweries
     
     def get_brewery(self, id):
-        return
+        response = json.loads(self._call("%s/%s" % (Brewery.resource_url, id)).text)
+        return Brewery(response['data'])
