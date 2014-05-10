@@ -16,10 +16,6 @@ class Beer(object):
         return self.data['id']
     
     @property
-    def brewery_db_id(self):
-        return self.data['id']
-    
-    @property
     def abv(self):
         return self.data['abv']
     
