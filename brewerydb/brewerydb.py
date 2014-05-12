@@ -14,7 +14,7 @@ BASE_URL = 'http://api.brewerydb.com/v2'
 
 
 class BreweryDB(object):
-    def __init__(self):
+    def __init__(self, api_key):
         self.api_key = api_key
         
     def _auth(self):
