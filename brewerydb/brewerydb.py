@@ -9,6 +9,7 @@ import urllib
 from .beer import Beer, Beers
 from .brewery import Brewery, Breweries
 
+
 BASE_URL = 'http://api.brewerydb.com/v2'
 
 
@@ -42,19 +43,33 @@ class BreweryDB(object):
         return urllib.urlencode(params)
     
     def search_beer(self, beer_name):
-        response = json.loads(self._call(Beers.resource_url, self._params(params={'name': beer_name, 'wwithBreweries': 'Y'})).text)
+        """ Search the BreweryDB for a beer.  Returns a
+        list of Beer objects.
+        
+        :param str beer_name: Query of the beer to search for
+        
+        :returns list Beer obj:  List of Beer objects
+        
+        """
+        response = json.loads(self._call("search", self._params(params={'q': beer_name, 'withBreweries': 'Y', 'type': 'beer'})).text)
         beers = []
         for beer in response['data']:
             beers.append(Beers(beer))
         return beers
         
     def get_beer(self, id):
+        """ Given a BreweryDB ID retrieve the
+        Beer object.
+        
+        :param int id: BreweryDB ID
+        :returns Beer beer: Beer object
+        """
+        
         response = json.loads(self._call("%s/%s" % (Beer.resource_url, id), self._params({'withBreweries': 'Y'})).text)
         return Beer(response['data'])
-
+        
     def search_breweries(self, brewery_name):
-        response = json.loads(self._call(Breweries.resource_url, self._params(params={'name': brewery_name})).text)
-        print(response)
+        response = json.loads(self._call('search', self._params(params={'q': brewery_name, 'type': 'brewery'})).text)
         breweries = []
         for brewery in response['data']:
             breweries.append(Brewery(brewery))
