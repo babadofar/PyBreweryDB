@@ -41,7 +41,7 @@ class Beer(object):
     
     @property
     def style(self):
-        return self.data['style']['name']
+        return self.data['style']['category']['name']
     
     @property
     def label_image_large(self):

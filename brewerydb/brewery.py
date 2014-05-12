@@ -18,29 +18,29 @@ class Brewery(object):
 
     @property
     def id(self):
-        return self.data['id']
+        return self.data.get('id', None)
 
     @property
     def description(self):
-        return self.data['description']
+        return self.data.get('description', None)
 
     @property
     def name(self):
-        return self.data['name']
+        return self.data.get('name', None)
 
     @property
     def established(self):
-        return self.data['established']
+        return self.data.get('established', None)
 
     @property
     def organic(self):
-        if self.data['isOrganic'] == 'Y':
+        if self.data.get('isOrganic', 'F') == 'Y':
             return True
         return False
 
     @property
     def website(self):
-        return self.data['website']
+        return self.data.get('website', None)
 
     @property
     def large_image(self):
