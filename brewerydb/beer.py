@@ -1,3 +1,5 @@
+from .brewery import Brewery
+
 class Beer(object):
     resource_url = 'beer'
     
@@ -9,23 +11,23 @@ class Beer(object):
         
     @property
     def name(self):
-        return self.data['name']
+        return self.data.get('name', None)
     
     @property
     def id(self):
-        return self.data['id']
+        return self.data.get('id', None)
     
     @property
     def abv(self):
-        return self.data['abv']
+        return self.data.get('abv', None)
     
     @property
     def ibu(self):
-        return self.data['ibu']
+        return self.data.get('ibu', None)
     
     @property
     def description(self):
-        return self.data['description']
+        return self.data.get('description', None)
     
     @property
     def organic(self):
@@ -34,14 +36,28 @@ class Beer(object):
         return False
     
     @property
-    def label_images(self):
-        return {'large': self.data['labels']['large'],
-                'medium': self.data['labels']['medium']}
+    def year(self):
+        return self.data.get('year', None)
+    
+    @property
+    def style(self):
+        return self.data['style']['name']
+    
+    @property
+    def label_image_large(self):
+        return self.data['labels']['large']
+    
+    @property
+    def label_image_medium(self):
+        return self.data['labels']['medium']
     
     @property
     def brewery_id(self):
         return self.data['breweries'][0]['id']
     
+    @property
+    def brewery(self):
+        return Brewery(self.data['breweries'][0])
     
     
 class Beers(Beer):
