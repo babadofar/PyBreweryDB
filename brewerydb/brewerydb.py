@@ -9,6 +9,7 @@ import urllib
 from .beer import Beer, Beers
 from .brewery import Brewery, Breweries
 
+
 BASE_URL = 'http://api.brewerydb.com/v2'
 
 
@@ -42,24 +43,62 @@ class BreweryDB(object):
         return urllib.urlencode(params)
     
     def search_beer(self, beer_name):
-        response = json.loads(self._call(Beers.resource_url, self._params(params={'name': beer_name, 'wwithBreweries': 'Y'})).text)
+        """ Search the BreweryDB for a beer.  Returns a
+        list of Beer objects.
+        
+        get /beers/
+        
+        :param beer_name: Query of the beer to search for
+        :type params: string
+        
+        :returns:  List of Beer objects
+        
+        """
+        response = json.loads(self._call("search", self._params(params={'q': beer_name, 'withBreweries': 'Y', 'type': 'beer'})).text)
         beers = []
         for beer in response['data']:
             beers.append(Beers(beer))
         return beers
         
     def get_beer(self, id):
+        """Fetches a single beer by id.
+
+        get /beer/<id>/
+
+        :param id: ID of beer
+        :type params: int
+        
+        :returns:  Beer object
+        """        
         response = json.loads(self._call("%s/%s" % (Beer.resource_url, id), self._params({'withBreweries': 'Y'})).text)
         return Beer(response['data'])
-
+        
     def search_breweries(self, brewery_name):
-        response = json.loads(self._call(Breweries.resource_url, self._params(params={'name': brewery_name})).text)
-        print(response)
+        """Fetches a single brewery by id.
+
+        get /breweries/
+
+        :param brewery_name: Search query for breweries
+        :type params: string
+        
+        :returns:  List of brewery objects
+
+        """
+        response = json.loads(self._call('search', self._params(params={'q': brewery_name, 'type': 'brewery'})).text)
         breweries = []
         for brewery in response['data']:
             breweries.append(Brewery(brewery))
         return breweries
     
     def get_brewery(self, id):
+        """Fetches a single character by id.
+
+        get /brewery/<id>/
+
+        :param id: ID of Brewery
+        :type params: int
+        
+        :returns:  Brewery object
+        """
         response = json.loads(self._call("%s/%s" % (Brewery.resource_url, id)).text)
         return Brewery(response['data'])

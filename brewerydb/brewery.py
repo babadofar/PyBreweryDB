@@ -18,35 +18,43 @@ class Brewery(object):
 
     @property
     def id(self):
-        return self.data['id']
+        """ Returns the ID of the brewery """
+        return self.data.get('id', None)
 
     @property
     def description(self):
-        return self.data['description']
+        """ Returns the description of the brewery """
+        return self.data.get('description', None)
 
     @property
     def name(self):
-        return self.data['name']
+        """ Returns the name of the brewery """
+        return self.data.get('name', None)
 
     @property
     def established(self):
-        return self.data['established']
+        """ Returns the year that the brewery was established """
+        return self.data.get('established', None)
 
     @property
     def organic(self):
-        if self.data['isOrganic'] == 'Y':
+        """ Returns a bool value on if this brewery is organic """
+        if self.data.get('isOrganic', 'F') == 'Y':
             return True
         return False
 
     @property
     def website(self):
-        return self.data['website']
+        """ Returns the website of the brewery """
+        return self.data.get('website', None)
 
     @property
     def large_image(self):
+        """ Returns the large image of the brewery """
         return self.data['images']['large']
 
     @property
     def medium_image(self):
+        """ Return the medium size image of the brewery """
         return self.data['images']['medium']
 
