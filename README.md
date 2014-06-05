@@ -17,7 +17,7 @@ Use pip::
 
     pip install pybrewerydb
 
-`Python Package Index https://pypi.python.org/pypi/pybrewerydb
+Python Package Index https://pypi.python.org/pypi/pybrewerydb
 
 Get yourself an API key to use https://www.brewerydb.com/auth/signup/ref/apps
 
