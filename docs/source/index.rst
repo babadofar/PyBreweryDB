@@ -6,7 +6,6 @@ Python wrapper for the BreweryDB API
 .. toctree::
     :maxdepth: 2
     
-    api
     Reference: BreweryDB <reference/brewerydb>
     Reference: Beer <reference/beer>
     Reference: Brewery <reference/brewery>
