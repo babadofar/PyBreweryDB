@@ -46,9 +46,12 @@ class BreweryDB(object):
         """ Search the BreweryDB for a beer.  Returns a
         list of Beer objects.
         
-        :param str beer_name: Query of the beer to search for
+        get /beers/
         
-        :returns list Beer obj:  List of Beer objects
+        :param beer_name: Query of the beer to search for
+        :type params: string
+        
+        :returns:  List of Beer objects
         
         """
         response = json.loads(self._call("search", self._params(params={'q': beer_name, 'withBreweries': 'Y', 'type': 'beer'})).text)
@@ -58,17 +61,29 @@ class BreweryDB(object):
         return beers
         
     def get_beer(self, id):
-        """ Given a BreweryDB ID retrieve the
-        Beer object.
+        """Fetches a single beer by id.
+
+        get /beer/<id>/
+
+        :param id: ID of beer
+        :type params: int
         
-        :param int id: BreweryDB ID
-        :returns Beer beer: Beer object
-        """
-        
+        :returns:  Beer object
+        """        
         response = json.loads(self._call("%s/%s" % (Beer.resource_url, id), self._params({'withBreweries': 'Y'})).text)
         return Beer(response['data'])
         
     def search_breweries(self, brewery_name):
+        """Fetches a single brewery by id.
+
+        get /breweries/
+
+        :param brewery_name: Search query for breweries
+        :type params: string
+        
+        :returns:  List of brewery objects
+
+        """
         response = json.loads(self._call('search', self._params(params={'q': brewery_name, 'type': 'brewery'})).text)
         breweries = []
         for brewery in response['data']:
@@ -76,5 +91,14 @@ class BreweryDB(object):
         return breweries
     
     def get_brewery(self, id):
+        """Fetches a single character by id.
+
+        get /brewery/<id>/
+
+        :param id: ID of Brewery
+        :type params: int
+        
+        :returns:  Brewery object
+        """
         response = json.loads(self._call("%s/%s" % (Brewery.resource_url, id)).text)
         return Brewery(response['data'])

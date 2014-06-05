@@ -11,52 +11,67 @@ class Beer(object):
         
     @property
     def name(self):
+        """ Returns the name of the
+        beer """
         return self.data.get('name', None)
     
     @property
     def id(self):
+        """ Returns the ID of the beer """
         return self.data.get('id', None)
     
     @property
     def abv(self):
+        """ Returns the Alocohol By Volume of the beer """
         return self.data.get('abv', None)
     
     @property
     def ibu(self):
+        """ Returns the IBU of the beer """
         return self.data.get('ibu', None)
     
     @property
     def description(self):
+        """ Returns the description of the beer """
         return self.data.get('description', None)
     
     @property
     def organic(self):
+        """ Returns a boolean on if the beer is
+        organic or not """
         if self.data['isOrganic'] == 'Y':
             return True
         return False
     
     @property
     def year(self):
+        """ Return the year the beer was first produced """
         return self.data.get('year', None)
     
     @property
     def style(self):
+        """ Returns the name of the style
+        category that this beer belongs to."""
         return self.data['style']['category']['name']
     
     @property
     def label_image_large(self):
+        """ Return the large size label """
         return self.data['labels']['large']
     
     @property
     def label_image_medium(self):
+        """ Return the medium size image """
         return self.data['labels']['medium']
     
     @property
     def brewery_id(self):
+        """ Returns the brewery ID of the beer """
         return self.data['breweries'][0]['id']
     
     @property
     def brewery(self):
+        """ Returns the brewery object. """
         return Brewery(self.data['breweries'][0])
     
     
