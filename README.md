@@ -29,7 +29,7 @@ Create a PyBreweryDB instance using your api key:
 
     >>> from brewerydb.brewerydb import BreweryDB
     >>> brew_api = BreweryDB(key)
-    >>> beers = brew_api.search_beers('fat tire')
+    >>> beers = brew_api.search_beer('fat tire')
 
 Contributing
 ------------
