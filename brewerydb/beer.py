@@ -71,12 +71,20 @@ class Beer(object):
     @property
     def brewery_id(self):
         """ Returns the brewery ID of the beer """
-        return self.data['breweries'][0]['id']
+        breweries = self.data.get('breweries', None)
+        if breweries:
+            return breweries[0]['id']
+        else:
+            return None
     
     @property
     def brewery(self):
         """ Returns the brewery object. """
-        return Brewery(self.data['breweries'][0])
+        breweries = self.data.get('breweries', None)
+        if breweries:
+            return breweries[0]
+        else:
+            return None
     
     
 class Beers(Beer):
