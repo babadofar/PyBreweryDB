@@ -52,7 +52,11 @@ class Beer(object):
     def style(self):
         """ Returns the name of the style
         category that this beer belongs to."""
-        return self.data['style']['category']['name']
+        style = self.data.get('style', None)
+        if style:
+            return style['category']['name']
+        else:
+            return None
     
     @property
     def label_image_large(self):
