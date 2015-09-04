@@ -49,12 +49,22 @@ class Beer(object):
         return self.data.get('year', None)
     
     @property
-    def style(self):
+    def category(self):
         """ Returns the name of the style
         category that this beer belongs to."""
         style = self.data.get('style', None)
         if style:
             return style['category']['name']
+        else:
+            return None
+    
+    @property
+    def style(self):
+        """ Returns the name of the style
+        category that this beer belongs to."""
+        style = self.data.get('style', None)
+        if style:
+            return style['name']
         else:
             return None
     
